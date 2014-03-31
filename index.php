@@ -20,7 +20,7 @@ class  history_timeline_genertor {
 	
 	public function fetch(){
 		$data=array();
-		for($i=1540;$i<=2014;$i++){
+		for($i=1890;$i<=2014;$i++){
 			$this->yearsQueryString .= "Events%20by%20month|$i|";
 		
 		$url = "http://en.wikipedia.org/w/api.php?action=query&format=json&titles=Events%20by%20month|$i&prop=revisions&rvprop=content";
