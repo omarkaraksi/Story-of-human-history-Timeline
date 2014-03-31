@@ -13,7 +13,7 @@
 <style type='text/css'>
 		#placement {
 			margin:32px;
-			height:550px;
+			height:650px;
 		}
 		
 		
@@ -91,16 +91,16 @@
 		tg1 = $("#placement").timeline({
 				"min_zoom":1, 
 				"max_zoom":55, 
-				"image_lane_height":100,
+				"image_lane_height":220,
 				"show_centerline":true,
-				"icon_folder":"timeglider/icons/",
-				"data_source":"json/idaho.json",
+				"icon_folder":"timeglider/titles_icons/",
+				"data_source":"../../story_of_history2.json",
 				"show_footer":true
 		});
 		
 		tg_actor = tg1.data("timeline");
 		
-		
+		console.log(tg_actor);
 		
 		$("#scrolldown").bind("click", function() {
 			$(".timeglider-timeline-event").animate({top:"+=100"})

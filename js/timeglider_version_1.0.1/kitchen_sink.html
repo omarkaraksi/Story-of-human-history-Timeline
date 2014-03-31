@@ -412,8 +412,10 @@ tg_instance.updateEvent(updatedEventModel);
 				"min_zoom":1, 
 				"max_zoom":50, 
 				"timezone":"-06:00",
-				"icon_folder":"timeglider/icons/",
-				"data_source":"json/js_history.json",
+				//"icon_folder":"timeglider/icons/",
+				"icon_folder":"timeglider/titles_icons/",
+				//"data_source":"json/js_history.json",
+				"data_source":"../../story_of_history2.json",
 				"show_footer":true,
 				"display_zoom_level":true,
 				"mousewheel":"zoom", // zoom | pan | none
@@ -493,7 +495,7 @@ tg_instance.updateEvent(updatedEventModel);
 		
 		
 		$("#reloadTimeline").click(function() {
-			tg_instance.reloadTimeline("js_history", "json/js_history.json");
+			tg_instance.reloadTimeline("js_history", "../../story_of_history2.json");
 		});
 		
 		
