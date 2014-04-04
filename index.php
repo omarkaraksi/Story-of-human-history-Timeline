@@ -1,10 +1,13 @@
 <?php 
 //http://en.wikipedia.org/w/api.php?format=xml&action=query&prop=revisions&titles=Portal:Current_events/2014_February_1&rvprop=timestamp|user|comment|content
 //http://en.wikipedia.org/w/api.php?format=txt&action=query&prop=revisions&titles=Events%20by%20month|2011|2012&rvprop=content|timestamp|user|comment|content
-ini_set('memory_limit', '256M'); 
+ini_set('memory_limit', '1024M'); 
+ini_set('max_execution_time', '3000'); 
+
+//die;
 $timeline = new history_timeline_genertor();
 $timeline->init();
-
+die;
 class  history_timeline_genertor {
 	
 	
@@ -20,7 +23,7 @@ class  history_timeline_genertor {
 	
 	public function fetch(){
 		$data=array();
-		for($i=1890;$i<=2014;$i++){
+		for($i=1;$i<=2014;$i++){
 			$this->yearsQueryString .= "Events%20by%20month|$i|";
 		
 		$url = "http://en.wikipedia.org/w/api.php?action=query&format=json&titles=Events%20by%20month|$i&prop=revisions&rvprop=content";
@@ -33,12 +36,15 @@ class  history_timeline_genertor {
 		
 		if ($result) {
 		 // exit('cURL Error: '.curl_error($ch));
-			//print '<pre>';
+			print "$i<br>";;
 			$result = json_decode( $result ,true);
 			$data[]=  array_values($result['query']['pages']);
-			}
+			//die;
+		}else{
+			print "Bayez $i <br>";
 		}
-// 		
+		}
+	 		
 		// for($i=1951;$i<=date('Y');$i++){
 			// $this->yearsQueryString .= "Events%20by%20month|$i|";
 // 		
@@ -210,14 +216,14 @@ class  history_timeline_genertor {
 							$url =  "$httpurl1";
 						}
 						//date
+						$mdate = "$k-$month1-$int1" ;
 						try {
-							$mdate = "$k-$month1-$int1" ;
 							$month = date('m',strtotime($mdate));
-						    $date = new DateTime("$k-$month1-$int1 12:00:00");
+							$date = new DateTime("$k-$month-$int1 12:00:00");
 						} catch (Exception $e) {
-						   //echo $e->getMessage();
-							$date = '';
-						   // exit(1);
+							$month = date('m',strtotime($mdate));
+							$date = new DateTime("$k-$month-1 12:00:00");
+							// exit(1);
 						}
 						if($date!=''){
 							$title =  (strlen($str) > 23) ? substr($str,0,88).'...' : $str ;
@@ -259,7 +265,7 @@ class  history_timeline_genertor {
 		$finalArray['legend'] = $legend;
 		//print_r($beforePrepareEventPart);
 		//print_r(json_encode($finalArray));
-		ob_start('ob_gzhandler');
+		//ob_start('ob_gzhandler');
 		@file_put_contents('story_of_history2.json', '['.json_encode($finalArray).']');
 		//print_r($arr);
 	}
